@@ -1,13 +1,29 @@
-const body = await request.json();
+import { NextResponse } from "next/server";
+import { generateResponse } from "@/lib/ollama";
 
-const reply = await generateResponse(
-  body.message,
-  body.language,
-  body.scenario,
-  body.level,
-  body.history
-);
+export async function POST(request) {
+  try {
+    const body = await request.json();
 
-return Response.json({
-  reply,
-});
+    const { message, config } = body;
+
+    const reply = await generateResponse(message, config);
+
+    return NextResponse.json({
+      reply,
+    });
+
+  } catch (error) {
+
+    console.error("Error en /api/chat:", error);
+
+    return NextResponse.json(
+      {
+        reply: "Lo siento, ocurrió un error al comunicarme con Ollama.",
+      },
+      {
+        status: 500,
+      }
+    );
+  }
+}
