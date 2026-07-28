@@ -6,7 +6,7 @@ export default function Header() {
       </h1>
 
       <p className="text-center text-gray-300 mt-3 mb-8">
-        Aprende idiomas viviendo conversaciones reales.
+        Aprende idiomas viviendo conversaciones reales. Puedes elegir aquí👇🏻
       </p>
     </>
   );

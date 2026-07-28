@@ -7,15 +7,21 @@ import Header from "../components/Header";
 import LanguageSelector from "../components/LanguageSelector";
 import ScenarioSelector from "../components/ScenarioSelector";
 
-
 export default function Home() {
   const [language, setLanguage] = useState("Inglés");
   const [scenario, setScenario] = useState("Restaurante");
   const [level, setLevel] = useState("Básico");
   const router = useRouter();
+
   const startConversation = () => {
-  router.push("/chat");
-};
+    // Convertimos los parámetros a formato URL seguro
+    const params = new URLSearchParams({
+      language,
+      scenario,
+      level,
+    });
+    router.push(`/chat?${params.toString()}`);
+  };
 
   return (
     <main className="min-h-screen bg-slate-950 flex items-center justify-center p-6">
