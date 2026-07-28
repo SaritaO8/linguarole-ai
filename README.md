@@ -1,34 +1,172 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🌍 LinguaRole AI
 
-## Getting Started
+LinguaRole AI es una aplicación web desarrollada con **Next.js** que permite practicar idiomas mediante conversaciones simuladas en diferentes escenarios de la vida real utilizando un modelo de inteligencia artificial ejecutado localmente con **Ollama**.
 
-First, run the development server:
+## 📌 Características
+
+- 🌎 Selección de idioma.
+  - 🇺🇸 Inglés
+  - 🇫🇷 Francés
+  - 🇰🇷 Coreano
+
+- 🎭 Escenarios de conversación:
+  - 🍽️ Restaurante
+  - ✈️ Aeropuerto
+  - 🏨 Hotel
+  - 💼 Entrevista laboral
+  - 🛍️ Compras
+
+- 📈 Niveles de aprendizaje:
+  - Básico
+  - Intermedio
+  - Avanzado
+
+- 🤖 Conversaciones generadas mediante IA local con Ollama.
+
+- 💬 Chat interactivo.
+
+- ⏳ Indicador de escritura mientras la IA responde.
+
+- ✅ Corrección de errores del estudiante.
+
+- 📚 Enseñanza de nuevo vocabulario durante la conversación.
+
+---
+
+# 🛠️ Tecnologías utilizadas
+
+- Next.js 16
+- React
+- JavaScript
+- Tailwind CSS
+- Ollama
+- Llama 3.2
+
+---
+
+# 📂 Estructura del proyecto
+
+```
+app/
+│
+├── api/
+│   └── chat/
+│       └── route.js
+│
+├── chat/
+│   └── page.js
+│
+├── components/
+│   └── Header.jsx
+│
+├── page.js
+│
+lib/
+│
+└── ollama.js
+```
+
+---
+
+# 🚀 Instalación
+
+## 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/SaritaO8/linguarole-ai.git
+```
+
+---
+
+## 2. Entrar al proyecto
+
+```bash
+cd linguarole-ai
+```
+
+---
+
+## 3. Instalar dependencias
+
+```bash
+npm install
+```
+
+---
+
+## 4. Instalar Ollama
+
+Descargar desde:
+
+https://ollama.com/download
+
+---
+
+## 5. Descargar el modelo
+
+```bash
+ollama pull llama3.2
+```
+
+---
+
+## 6. Ejecutar Ollama
+
+```bash
+ollama serve
+```
+
+---
+
+## 7. Ejecutar la aplicación
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 8. Abrir en el navegador
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+http://localhost:3000
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+# 🎮 Funcionamiento
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Seleccionar el idioma.
+2. Seleccionar el escenario.
+3. Seleccionar el nivel.
+4. Presionar **Comenzar conversación**.
+5. Practicar el idioma mediante una conversación con un personaje generado por IA.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
+# 📸 Funcionalidades
+
+- Selección dinámica de idioma.
+- Conversaciones contextualizadas.
+- Personajes según el escenario.
+- Historial de conversación.
+- Respuestas naturales generadas por IA.
+- Corrección de errores.
+- Aprendizaje de vocabulario.
+
+---
+
+# 👨‍💻 Autor
+
+**Sara Brigete Carlier Méndez**
+
+Proyecto desarrollado como evidencia académica utilizando Next.js y Ollama.
+
+---
+
+# 📄 Licencia
+
+Este proyecto fue desarrollado con fines educativos.
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
