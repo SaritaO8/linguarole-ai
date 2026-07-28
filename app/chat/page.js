@@ -78,8 +78,9 @@ export default function ChatPage() {
     default:
 
       intro =
-      `👋 ¡Hola! Soy LinguaRole BOT 🤖
-      ¡Comencemos!`;
+`👋 ¡Hola! Soy LinguaRole BOT 🤖
+
+¡Comencemos!`;
   }
 
   return intro;
@@ -105,9 +106,12 @@ export default function ChatPage() {
     };
 
     const updatedMessages = [...messages, userMessage];
-      setMessages(updatedMessages);
-      setInput("");
-      setLoading(true);
+
+    setMessages(updatedMessages);
+
+    setInput("");
+
+    setLoading(true);
 
     try {
 
@@ -122,10 +126,15 @@ export default function ChatPage() {
         body: JSON.stringify({
 
           message: input,
+
           config: {
+
             language,
+
             scenario,
+
             level,
+
             history: updatedMessages.map((m) => ({
               role: m.sender,
               content: m.text,
@@ -161,29 +170,19 @@ export default function ChatPage() {
   };
 
   return (
-
     <main className="min-h-screen bg-slate-950 flex justify-center items-center p-6">
 
       <div className="w-full max-w-4xl bg-slate-900 rounded-2xl shadow-xl h-[85vh] flex flex-col">
 
-        <header className="bg-violet-600 text-white p-5 rounded-t-2xl flex justify-between items-center">
+        <header className="bg-violet-600 text-white p-5 rounded-t-2xl">
 
-          <div>
-            <h1 className="text-2xl font-bold">
-              🤖 LinguaRole AI
-            </h1>
+          <h1 className="text-2xl font-bold">
+            🤖 LinguaRole AI
+          </h1>
 
-            <p className="text-sm">
-              {language} | {scenario} | {level}
-            </p>
-          </div>
-
-          <button
-            onClick={newConversation}
-            className="bg-white text-violet-700 px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition"
-          >
-            🔄 Nueva conversación
-          </button>
+          <p className="text-sm">
+            {language} | {scenario} | {level}
+          </p>
 
         </header>
 
@@ -194,31 +193,15 @@ export default function ChatPage() {
             <div
               key={index}
               className={
-              message.sender === "user"
-                ? "bg-violet-600 text-white p-3 rounded-xl ml-auto max-w-sm"
-                : "bg-slate-700 text-white p-3 rounded-xl max-w-sm"
-            }
-          >
-            {message.text}
-          </div>
-
-        ))}
-
-          {loading && (
-            <div className="flex justify-start">
-              <div className="bg-slate-700 text-white px-4 py-3 rounded-xl flex items-center gap-2">
-
-                <span className="animate-bounce">●</span>
-                <span className="animate-bounce [animation-delay:150ms]">●</span>
-                <span className="animate-bounce [animation-delay:300ms]">●</span>
-
-                <span className="ml-2 text-sm">
-                  LinguaRole AI está escribiendo...
-                </span>
-
-              </div>
+                message.sender === "user"
+                  ? "bg-violet-600 text-white p-3 rounded-xl ml-auto max-w-sm"
+                  : "bg-slate-700 text-white p-3 rounded-xl max-w-sm"
+              }
+            >
+              {message.text}
             </div>
-          )}
+
+          ))}
 
         </section>
 
