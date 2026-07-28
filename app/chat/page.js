@@ -6,7 +6,7 @@ export default function ChatPage() {
   const [messages, setMessages] = useState([
     {
       sender: "ai",
-      text: "👋 ¡Hola! Soy LinguaRole AI. ¿Cómo estás hoy?",
+      text: "👋 ¡Hola! Soy LinguaRole AI y hoy practicaremos el idioma escogido por ti😊",
     },
   ]);
 
