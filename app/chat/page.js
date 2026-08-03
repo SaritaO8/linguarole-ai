@@ -19,69 +19,48 @@ export default function ChatPage() {
 
     case "Español":
 
-      intro =
-        `👋 ¡Hola! Soy LinguaRole BOT 🤖
+      intro = `👋 ¡Hola! Soy LinguaRole BOT 🤖
+      Hoy practicaremos Español.
+      Escenario: ${scenario}.
+      ¡Comencemos!`;
+        
+        break;
 
-        Hoy practicaremos Español.
+        case "Inglés":
 
-        Escenario: ${scenario}
+      intro = `👋 Hello! I'm LinguaRole BOT 🤖
+      Today we'll practice English.
+      Scenario: ${scenario}.
+      Let's begin!`;
 
-        ¡Comencemos!
-
-        👨‍🍳 ¡Bienvenido a Bella Italia!
-
-        Mi nombre es John.
-
-        ¿Te gustaría ver el menú?`;
-
-      break;
-
-      case "Inglés":
-
-      intro =
-      `👋 Hello! I'm LinguaRole BOT 🤖
-          Today we'll practice English.
-          Scenario: ${scenario}
-          Let's begin!
-          👨‍🍳 Welcome to Bella Italia!
-          My name is John.
-          Would you like to see the menu?`;
-
-            break;
+        break;
 
         case "Francés":
 
-      intro =
-      `👋 Bonjour ! Je suis LinguaRole BOT 🤖
-        Aujourd'hui nous allons pratiquer le français.
-        Scénario : ${scenario}
-        Commençons !
-        👨‍🍳 Bienvenue à Bella Italia !
-        Je m'appelle John.
-        Voulez-vous voir le menu ?`;
+      intro = `👋 Bonjour ! Je suis LinguaRole BOT 🤖
+      Aujourd'hui nous allons pratiquer le français.
+      Scénario : ${scenario}.
+      Commençons !`;
 
-            break;
+        break;
 
-      case "Coreano":
+        case "Coreano":
 
       intro =
       `👋 안녕하세요! 저는 LinguaRole BOT입니다. 🤖
       오늘은 한국어를 연습해 봅시다.
-      상황: ${scenario}
-      시작해 봅시다!
-      👨‍🍳 Bella Italia에 오신 것을 환영합니다!
-      제 이름은 John입니다.
-      메뉴를 보시겠어요?`;
+      상황: ${scenario}.
+      시작해 봅시다!`;
 
-            break;
+        break;
 
     default:
 
       intro =
 `👋 ¡Hola! Soy LinguaRole BOT 🤖
 
-¡Comencemos!`;
-  }
+    ¡Comencemos!`;
+}
 
   return intro;
 }
@@ -126,15 +105,10 @@ export default function ChatPage() {
         body: JSON.stringify({
 
           message: input,
-
           config: {
-
             language,
-
             scenario,
-
             level,
-
             history: updatedMessages.map((m) => ({
               role: m.sender,
               content: m.text,
@@ -163,7 +137,7 @@ export default function ChatPage() {
         ...prev,
         {
           sender: "ai",
-          text: "❌ Error al comunicarse con Ollama.",
+          text: "Error al comunicarse con Ollama.",
         },
       ]);
     }

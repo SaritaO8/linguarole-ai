@@ -5,7 +5,7 @@ export async function POST(request) {
   try {
     const body = await request.json();
 
-    const { message, config } = body;
+    const{ message, config } = body;
 
     const reply = await generateResponse(message, config);
 
@@ -13,7 +13,7 @@ export async function POST(request) {
       reply,
     });
 
-  } catch (error) {
+  } catch(error) {
 
     console.error("Error en /api/chat:", error);
 

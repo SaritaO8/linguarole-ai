@@ -8,8 +8,9 @@ export default function LanguageSelector({ language, setLanguage }) {
       <select
         value={language}
         onChange={(e) => setLanguage(e.target.value)}
-        className="w-full p-3 rounded-lg bg-slate-800 text-white border border-slate-700"
-      >
+        className="w-full p-3 rounded-lg bg-slate-800 text-white border border-slate-700">
+
+        <option>Español</option>
         <option>Inglés</option>
         <option>Francés</option>
         <option>Coreano</option>
