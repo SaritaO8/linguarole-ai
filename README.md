@@ -5,6 +5,8 @@ LinguaRole AI es una aplicación web desarrollada con **Next.js** que permite pr
 ## 📌 Características
 
 - 🌎 Selección de idioma.
+
+  - 🇪🇸 Español
   - 🇺🇸 Inglés
   - 🇫🇷 Francés
   - 🇰🇷 Coreano
