@@ -1,82 +1,71 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+
+const getCharacterName = (scenario) => {
+  switch (scenario) {
+    case "Restaurante":
+      return "John";
+    case "Hotel":
+      return "Emma";
+    case "Aeropuerto":
+      return "el oficial de migración";
+    case "Compras":
+      return "el vendedor";
+    case "Entrevista":
+      return "el entrevistador";
+    default:
+      return "tu instructor";
+  }
+};
+
+const getInitialMessage = (language, scenario) => {
+  const name = getCharacterName(scenario);
+
+  switch (language) {
+    case "Español":
+      return `👋 ¡Hola! Soy LinguaRole BOT 🤖\nHoy practicaremos Español.\nEscenario: ${scenario}.\nSoy ${name}.\n¡Comencemos!`;
+    case "Inglés":
+      return `👋 Hello! I'm LinguaRole BOT 🤖\nToday we'll practice English.\nScenario: ${scenario}.\nI'm ${name}.\nLet's begin!`;
+    case "Francés":
+      return `👋 Bonjour ! Je suis LinguaRole BOT 🤖\nAujourd'hui nous allons pratiquer le français.\nScénario : ${scenario}.\nSuis ${name}.\nCommençons !`;
+    case "Coreano":
+      return `👋 안녕하세요! 저는 LinguaRole BOT입니다. 🤖\n오늘은 한국어를 연습해 봅시다.\n상황: ${scenario}.\n저는 ${name}입니다.\n시작해 봅시다!`;
+    default:
+      return `👋 ¡Hola! Soy LinguaRole BOT 🤖\n¡Comencemos!`;
+  }
+};
 
 export default function ChatPage() {
-
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const language = searchParams.get("language") || "Inglés";
   const scenario = searchParams.get("scenario") || "Restaurante";
   const level = searchParams.get("level") || "Básico";
 
-  function getInitialMessage() {
-
-  let intro = "";
-
-  switch (language) {
-
-    case "Español":
-
-      intro = `👋 ¡Hola! Soy LinguaRole BOT 🤖
-      Hoy practicaremos Español.
-      Escenario: ${scenario}.
-      ¡Comencemos!`;
-        
-        break;
-
-        case "Inglés":
-
-      intro = `👋 Hello! I'm LinguaRole BOT 🤖
-      Today we'll practice English.
-      Scenario: ${scenario}.
-      Let's begin!`;
-
-        break;
-
-        case "Francés":
-
-      intro = `👋 Bonjour ! Je suis LinguaRole BOT 🤖
-      Aujourd'hui nous allons pratiquer le français.
-      Scénario : ${scenario}.
-      Commençons !`;
-
-        break;
-
-        case "Coreano":
-
-      intro =
-      `👋 안녕하세요! 저는 LinguaRole BOT입니다. 🤖
-      오늘은 한국어를 연습해 봅시다.
-      상황: ${scenario}.
-      시작해 봅시다!`;
-
-        break;
-
-    default:
-
-      intro =
-`👋 ¡Hola! Soy LinguaRole BOT 🤖
-
-    ¡Comencemos!`;
-}
-
-  return intro;
-}
-
   const [messages, setMessages] = useState([
     {
-      sender: "ai",
-      text: getInitialMessage(),
+      sender: "assistant",
+      text: getInitialMessage(language, scenario),
     },
   ]);
-
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const sendMessage = async () => {
+  const resetConversation = () => {
+    setMessages([
+      {
+        sender: "assistant",
+        text: getInitialMessage(language, scenario),
+      },
+    ]);
+    setInput("");
+    setLoading(false);
+  };
 
+  const sendMessage = async () => {
     if (!input.trim()) return;
 
     const userMessage = {
@@ -85,38 +74,28 @@ export default function ChatPage() {
     };
 
     const updatedMessages = [...messages, userMessage];
-
     setMessages(updatedMessages);
-
     setInput("");
-
     setLoading(true);
 
     try {
-
       const response = await fetch("/api/chat", {
-
         method: "POST",
-
         headers: {
           "Content-Type": "application/json",
         },
-
         body: JSON.stringify({
-
           message: input,
           config: {
             language,
             scenario,
             level,
-            history: updatedMessages.map((m) => ({
-              role: m.sender,
-              content: m.text,
+            history: messages.map((message) => ({
+              role: message.sender,
+              content: message.text,
             })),
           },
-
         }),
-
       });
 
       const data = await response.json();
@@ -124,19 +103,17 @@ export default function ChatPage() {
       setMessages((prev) => [
         ...prev,
         {
-          sender: "ai",
+          sender: "assistant",
           text: data.reply,
         },
       ]);
-
     } catch (error) {
-
       setLoading(false);
       console.error(error);
       setMessages((prev) => [
         ...prev,
         {
-          sender: "ai",
+          sender: "assistant",
           text: "Error al comunicarse con Ollama.",
         },
       ]);
@@ -145,25 +122,34 @@ export default function ChatPage() {
 
   return (
     <main className="min-h-screen bg-slate-950 flex justify-center items-center p-6">
-
       <div className="w-full max-w-4xl bg-slate-900 rounded-2xl shadow-xl h-[85vh] flex flex-col">
-
-        <header className="bg-violet-600 text-white p-5 rounded-t-2xl">
-
-          <h1 className="text-2xl font-bold">
-            🤖 LinguaRole AI
-          </h1>
-
-          <p className="text-sm">
-            {language} | {scenario} | {level}
-          </p>
-
+        <header className="bg-violet-600 text-white p-5 rounded-t-2xl flex flex-col gap-3">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <h1 className="text-2xl font-bold">🤖 LinguaRole AI</h1>
+              <p className="text-sm">{language} | {scenario} | {level}</p>
+            </div>
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => router.push("/")}
+                className="rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
+              >
+                Volver al inicio
+              </button>
+              <button
+                type="button"
+                onClick={resetConversation}
+                className="rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
+              >
+                Reiniciar conversación
+              </button>
+            </div>
+          </div>
         </header>
 
         <section className="flex-1 p-5 overflow-y-auto space-y-4">
-
           {messages.map((message, index) => (
-
             <div
               key={index}
               className={
@@ -174,13 +160,10 @@ export default function ChatPage() {
             >
               {message.text}
             </div>
-
           ))}
-
         </section>
 
         <footer className="p-5 border-t border-slate-700 flex gap-3">
-
           <input
             value={input}
             placeholder="Escribe un mensaje..."
@@ -190,18 +173,15 @@ export default function ChatPage() {
             }}
             className="flex-1 p-3 rounded-lg bg-slate-800 text-white outline-none"
           />
-
           <button
             onClick={sendMessage}
-            className="bg-violet-600 hover:bg-violet-700 transition px-6 rounded-lg text-white font-bold"
+            disabled={loading}
+            className="bg-violet-600 hover:bg-violet-700 transition px-6 rounded-lg text-white font-bold disabled:cursor-not-allowed disabled:opacity-60"
           >
             Enviar
           </button>
-
         </footer>
-
       </div>
-
     </main>
   );
 }

@@ -14,12 +14,12 @@ export async function POST(request) {
     });
 
   } catch(error) {
-
     console.error("Error en /api/chat:", error);
+    const errorMessage = error instanceof Error ? error.message : "Lo siento, ocurrió un error al comunicarme con Ollama.";
 
     return NextResponse.json(
       {
-        reply: "Lo siento, ocurrió un error al comunicarme con Ollama.",
+        reply: errorMessage,
       },
       {
         status: 500,
