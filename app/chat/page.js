@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import ChatHeader from "@/components/chat/ChatHeader";
+import MessageBubble from "@/components/chat/MessageBubble";
+import TypingIndicator from "@/components/chat/TypingIndicator";
 
 const getCharacterName = (scenario) => {
   switch (scenario) {
@@ -123,44 +126,25 @@ export default function ChatPage() {
   return (
     <main className="min-h-screen bg-slate-950 flex justify-center items-center p-6">
       <div className="w-full max-w-4xl bg-slate-900 rounded-2xl shadow-xl h-[85vh] flex flex-col">
-        <header className="bg-violet-600 text-white p-5 rounded-t-2xl flex flex-col gap-3">
-          <div className="flex items-center justify-between gap-3">
-            <div>
-              <h1 className="text-2xl font-bold">🤖 LinguaRole AI</h1>
-              <p className="text-sm">{language} | {scenario} | {level}</p>
-            </div>
-            <div className="flex gap-2">
-              <button
-                type="button"
-                onClick={() => router.push("/")}
-                className="rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
-              >
-                Volver al inicio
-              </button>
-              <button
-                type="button"
-                onClick={resetConversation}
-                className="rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
-              >
-                Reiniciar conversación
-              </button>
-            </div>
-          </div>
-        </header>
+        <ChatHeader
+          language={language}
+          scenario={scenario}
+          level={level}
+          onGoHome={() => router.push("/")}
+          onResetConversation={resetConversation}
+        />
 
         <section className="flex-1 p-5 overflow-y-auto space-y-4">
           {messages.map((message, index) => (
-            <div
+            <MessageBubble
               key={index}
-              className={
-                message.sender === "user"
-                  ? "bg-violet-600 text-white p-3 rounded-xl ml-auto max-w-sm"
-                  : "bg-slate-700 text-white p-3 rounded-xl max-w-sm"
-              }
-            >
-              {message.text}
-            </div>
+              sender={message.sender}
+              text={message.text}
+            />
           ))}
+
+          {loading && <TypingIndicator />}
+          
         </section>
 
         <footer className="p-5 border-t border-slate-700 flex gap-3">

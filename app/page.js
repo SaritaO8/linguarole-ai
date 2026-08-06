@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-import Header from "../components/Header";
-import LanguageSelector from "../components/LanguageSelector";
-import ScenarioSelector from "../components/ScenarioSelector";
+import Header from "../components/selectors/Header";
+import LanguageSelector from "../components/selectors/LanguageSelector";
+import ScenarioSelector from "../components/selectors/ScenarioSelector";
 
 export default function Home() {
   const [language, setLanguage] = useState("Inglés");
